@@ -3,6 +3,7 @@ const router = express.Router();
 
 const posts = require("../data/posts");
 const error = require("../utilities/error");
+const users = require("../data/users") // get users from data
 
 router
   .route("/")
@@ -76,5 +77,15 @@ router
     if (post) res.json(post);
     else next();
   });
+
+//I can't seem to get this one to work
+router.get('/?userId=<value>', (req, res, next) =>{
+  let userId= req.query[userId]
+  req.userId=userId
+  const post = (posts.filter((p) => req.userId == p.userId))
+  if (post) res.json(post)
+    else next();
+})
+
 
 module.exports = router;
